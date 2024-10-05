@@ -54,7 +54,7 @@ const options = {
         clearInterval(timerInterval);
         dateTime.disabled = false;
         startBtn.disabled = true;
-        updateDisplay(0, 0, 0, 0);
+        // updateDisplay(0, 0, 0, 0);
         return;
     }
 
@@ -92,7 +92,27 @@ const options = {
     return { days, hours, minutes, seconds };
   }
   
-  console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-  
+// Додай відображення дати і часу в реальному часі
+
+const timeSpan = document.querySelector('.date span');
+timeSpan.textContent = new Date().toLocaleString();
+setInterval(() => timeSpan.textContent = new Date().toLocaleString(), 1000);
+
+// 1. Обчислення віку за датою народження
+// Задача: Напишіть функцію calculateAge(birthDate), яка приймає дату народження у форматі YYYY-MM-DD і повертає поточний вік.
+// Підказка: Використайте об'єкт Date для обчислення різниці між сьогоднішньою датою і датою народження.
+
+function calculateAge(birthDate) {
+  const now = new Date();
+  const birth = new Date(birthDate);
+  let age = now.getFullYear() - birth.getFullYear();
+  const month = now.getMonth() - birth.getMonth();
+  const day = now.getDate() - birth.getDate();
+  if (month < 0 || (month === 0 && day < 0)) {
+    age -= 1;
+  }
+return age;
+
+}
+console.log(calculateAge('1995-11-18'));
+
